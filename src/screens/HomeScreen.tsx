@@ -15,7 +15,7 @@ import CardList from '../components/card/cardHome/ListCardHome';
 const HomeScreen = () => {
 
 	let nombre = "Horacio Rodriguez"
-	let ubicacion = "Av no se cuantoooo"
+	let ubicacion = "Aviador Zanni 4525"
 
 	const productsCarousel = useSelector((state: RootState) => state.products.ProductsCarousel);
 	const ProductsHomeMalta = useSelector((state: RootState) => state.products.ProductsHomeMalta);

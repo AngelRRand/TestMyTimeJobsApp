@@ -5,10 +5,17 @@ import HomeStack from './HomeStack';
 import UserStack from './UserStack';
 import CartStack from './CartStack';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux';
+import { View, Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 const AppStack = () => {
+
+    const counts = useSelector((state: RootState) => state.products.ProductsCart);
+    const cartItemCount = counts.reduce((total, item) => total + item.count, 0);
+
     return (
         <NavigationContainer>
             <Tab.Navigator
@@ -44,45 +51,24 @@ const AppStack = () => {
                     }}
                 />
 
-                <Tab.Screen
-                    name="UserStack"
-                    component={UserStack}
-                    options={{
-                        tabBarIcon: ({ focused }) =>
-                            focused ? (
-                                <Icon
-                                    name="user"
-                                    size={30}
-                                    color="#800040"
-                                />
-                            ) : (
-                                <Icon
-                                    name="user"
-                                    size={30}
-                                    color="#222222"
-                                />
-                            ),
-                    }}
-                />
 
                 <Tab.Screen
                     name="CartStack"
                     component={CartStack}
                     options={{
                         tabBarIcon: ({ focused }) =>
-                            focused ? (
+                            <View>
                                 <Icon
                                     name="shopping-cart"
                                     size={30}
-                                    color="#800040"
+                                    color={focused ? "#800040" : "#222222"}
                                 />
-                            ) : (
-                                <Icon
-                                    name="shopping-cart"
-                                    size={30}
-                                    color="#222222"
-                                />
-                            ),
+                                {cartItemCount > 0 && (
+                                    <View style={{ position: 'absolute', top: -5, right: -10, backgroundColor: "#800040", borderRadius: 10, width: 20, height: 20, justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ color: 'white', fontSize: 10 }}>{cartItemCount}</Text>
+                                    </View>
+                                )}
+                            </View>
                     }}
                 />
 
