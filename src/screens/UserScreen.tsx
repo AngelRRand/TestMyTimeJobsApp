@@ -2,15 +2,14 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import Layoud from '../components/container/Layoud'
 import { ScrollView } from 'native-base'
-const FavoriteScreen = () => {
+const UserScreen = () => {
 	return (
 		<Layoud >
 			<ScrollView>
-
-				<Text>FavoriteScreen</Text>
+				<Text>UserScreen</Text>
 			</ScrollView>
 		</Layoud>
 	)
 }
 
-export default FavoriteScreen
+export default UserScreen

@@ -45,6 +45,7 @@ export interface MyInitialState {
     ProductsCarousel: CarouselBeer[]
     ProductsHomeMalta: CardHomeBeer[]
     ProductsHomeHops: CardHomeBeer[]
+    ProductsCart: BeerCart[]
     CurrentBeerDetails: Beer | null
     Beers: Beer[]
 }
@@ -66,8 +67,25 @@ export interface CarouselBeers {
 export interface BeerProduct {
     id: number;
     name: string;
+    image_url: string;
+    cost:number;
+    tagline: string;
+
 }
 
 export interface CardProps {
     item: BeerProduct;
 }
+
+export interface BeerCart {
+    id: number;
+    name: string;
+    image_url: string;
+    cost:number;
+    tagline: string;
+    count:number
+}
+export interface CardPropsCart {
+    item: BeerCart;
+}
+ 

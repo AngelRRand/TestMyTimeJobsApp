@@ -12,7 +12,7 @@ const Card: React.FC<CardHomeBeer> = ({ id, name, image_url, cost }) => {
 
   const handleCardPress = () => {
     dispatch(fetchBeerDetails(id));
-    navigation.navigate('Detail');
+    navigation.navigate('Detail'); 
   }
 
   return (

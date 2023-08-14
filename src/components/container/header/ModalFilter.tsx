@@ -88,9 +88,13 @@ const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
 			}
 		}
 
-		dispatch(fetchFilteredProducts(ingredientQuery, alcoholRange, bitternessRange));
+		dispatch(fetchFilteredProducts(ingredientQuery, alcoholRange, bitternessRange, 1));
 		onClose();
-		navigation.navigate('Products');
+		navigation.navigate('Products', {
+			ingredient: selectedIngredient,
+			alcoholRange: alcoholRange,
+			bitternessRange: bitternessRange,
+		});
 	}
 	const areInputsValid = () => {
 		if (selectedIngredient) return true;

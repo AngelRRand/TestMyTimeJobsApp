@@ -2,7 +2,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from './HomeStack';
-import FavoriteStack from './FavoriteStack';
+import UserStack from './UserStack';
 import CartStack from './CartStack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -45,19 +45,19 @@ const AppStack = () => {
                 />
 
                 <Tab.Screen
-                    name="FavoriteStack"
-                    component={FavoriteStack}
+                    name="UserStack"
+                    component={UserStack}
                     options={{
                         tabBarIcon: ({ focused }) =>
                             focused ? (
                                 <Icon
-                                    name="heart"
+                                    name="user"
                                     size={30}
                                     color="#800040"
                                 />
                             ) : (
                                 <Icon
-                                    name="heart"
+                                    name="user"
                                     size={30}
                                     color="#222222"
                                 />
