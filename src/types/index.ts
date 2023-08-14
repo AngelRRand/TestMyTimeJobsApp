@@ -46,6 +46,7 @@ export interface MyInitialState {
     ProductsHomeMalta: CardHomeBeer[]
     ProductsHomeHops: CardHomeBeer[]
     CurrentBeerDetails: Beer | null
+    Beers: Beer[]
 }
 
 export interface ListCardData {
@@ -62,3 +63,11 @@ export interface CarouselBeers {
     listcarousel: CarouselBeer[];
 }
 
+export interface BeerProduct {
+    id: number;
+    name: string;
+}
+
+export interface CardProps {
+    item: BeerProduct;
+}

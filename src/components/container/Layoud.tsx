@@ -6,7 +6,6 @@ import { SafeAreaView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 const Layoud: React.FC<layoud> = ({ children }) => {
 	return (
-		<NativeBaseProvider>
 			<SafeAreaView style={{ flex: 1, width: '100%' }}>
 				<LinearGradient
 					start={{ x: 0, y: 0.1 }}
@@ -24,7 +23,6 @@ const Layoud: React.FC<layoud> = ({ children }) => {
 
 				</LinearGradient>
 			</SafeAreaView>
-		</NativeBaseProvider >
 	)
 }
 

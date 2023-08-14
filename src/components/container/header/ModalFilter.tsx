@@ -5,8 +5,13 @@ import { Dispatch, RootState } from '../../../redux';
 import { useEffect, useState } from 'react';
 import { fetchIngredients } from '../../../redux/reducers/filters';
 import { Title } from '../../../types/filter';
+import { fetchFilteredProducts } from '../../../redux/reducers/products';
+import { useNavigation } from '@react-navigation/native';
 
 const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
+
+
+	const navigation: any = useNavigation();
 	const dispatch: Dispatch = useDispatch();
 	const malts = useSelector((state: RootState) => state.filters.Malts);
 	const hops = useSelector((state: RootState) => state.filters.Hops);
@@ -20,6 +25,9 @@ const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
 
 	const [bitternessRange, setBitternessRange] = useState({ min: '', max: '' });
 	const [errorMessage2, setErrorMessage2] = useState<string | null>(null);
+
+	const [errorMessage3, setErrorMessage3] = useState<string | null>(null);
+
 
 
 	const toggleMalts = () => {
@@ -37,6 +45,7 @@ const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
 	const handleIngredientSelection = (name: string) => {
 		setSelectedIngredient(name);
 		setIngredientModalOpen(false);
+		handleValueChange();
 	};
 
 	const handleAlcoholChange = (type: "min" | "max", value: string) => {
@@ -46,7 +55,8 @@ const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
 			setErrorMessage("El valor mínimo debe ser menor al máximo y el valor máximo mayor al mínimo.");
 		} else {
 			setAlcoholRange(newValues);
-			setErrorMessage(null); 
+			setErrorMessage(null);
+			handleValueChange();
 		}
 	};
 
@@ -57,7 +67,41 @@ const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
 			setErrorMessage2("El valor mínimo debe ser menor al máximo y el valor máximo mayor al mínimo.");
 		} else {
 			setBitternessRange(newValues);
-			setErrorMessage2(null); 
+			setErrorMessage2(null);
+			handleValueChange();
+		}
+	};
+
+	const applyFilter = () => {
+
+		if (!areInputsValid()) {
+			setErrorMessage3("Por favor, ingrese al menos un criterio para filtrar.");
+			return;
+		}
+
+		let ingredientQuery = '';
+		if (selectedIngredient) {
+			if (nameFilter === "Maltas") {
+				ingredientQuery = `malt=${selectedIngredient}`;
+			} else if (nameFilter === "Lúpulo") {
+				ingredientQuery = `hops=${selectedIngredient}`;
+			}
+		}
+
+		dispatch(fetchFilteredProducts(ingredientQuery, alcoholRange, bitternessRange));
+		onClose();
+		navigation.navigate('Products');
+	}
+	const areInputsValid = () => {
+		if (selectedIngredient) return true;
+		if (alcoholRange.min || alcoholRange.max) return true;
+		if (bitternessRange.min || bitternessRange.max) return true;
+		return false;
+	};
+
+	const handleValueChange = () => {
+		if (areInputsValid()) {
+			setErrorMessage3(null);
 		}
 	};
 
@@ -178,10 +222,10 @@ const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
 							</VStack>
 						</HStack>
 						{errorMessage2 && <Text color="red.500" mt={2}>{errorMessage2}</Text>}
-
+						{errorMessage3 && <Text color="red.500" mt={2}>{errorMessage3}</Text>}
 					</Modal.Body>
 					<Modal.Footer justifyContent="center">
-						<Button w="100%" bg="#800040" onPress={onClose}>
+						<Button w="100%" bg="#800040" onPress={applyFilter}>
 							Filtrar
 						</Button>
 					</Modal.Footer>
@@ -196,8 +240,8 @@ const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
 						<Modal.Body>
 							<ScrollView>
 								<VStack space={2}>
-									{ingredientList.map(ingredient => (
-										<Pressable onPress={() => handleIngredientSelection(ingredient.name)}>
+									{ingredientList.map((ingredient, i) => (
+										<Pressable key={i} onPress={() => handleIngredientSelection(ingredient.name)}>
 											<Text p={0.5} isTruncated key={ingredient.name}>{ingredient.name}</Text>
 										</Pressable>
 									))}

@@ -8,7 +8,8 @@ const initialState: MyInitialState = {
     ProductsCarousel: [],
     ProductsHomeMalta:[],
     ProductsHomeHops:[],
-    CurrentBeerDetails: null
+    CurrentBeerDetails: null,
+    Beers: [],
 };
 
 const mySlice = createSlice({
@@ -26,6 +27,9 @@ const mySlice = createSlice({
         },
         getBeerDetails: (state, action: PayloadAction<Beer>) => {
             state.CurrentBeerDetails = action.payload;
+        },
+        getBeer:(state, action: PayloadAction<Beer[]>) => {
+            state.Beers = action.payload;
         }
     },
 });
@@ -59,7 +63,7 @@ export const fetchProductsCarousel = () => {
 export const fetchProductsMalt = () => {
     return async (dispatch: Dispatch) => {
         try {
-            const response = await axios.get('https://api.punkapi.com/v2/beers?malt=Munich&per_page=10');
+            const response = await axios.get('https://api.punkapi.com/v2/beers?malt=Munich&per_page=5');
             
             let transformedData: Beer[] = response.data;
             
@@ -73,7 +77,7 @@ export const fetchProductsMalt = () => {
 export const fetchProductsHops = () => {
     return async (dispatch: Dispatch) => {
         try {
-            const response = await axios.get('https://api.punkapi.com/v2/beers?hops=Simcoe&per_page=10');
+            const response = await axios.get('https://api.punkapi.com/v2/beers?hops=Simcoe&per_page=5');
             
             let transformedData: Beer[] = response.data;
             
@@ -96,3 +100,24 @@ export const fetchBeerDetails = (beerId: number) => {
         }
     }
 }
+
+export const fetchFilteredProducts = (ingredient: string, alcoholRange: {min: string, max: string}, bitternessRange: {min: string, max: string}) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            let query = '';
+
+            // Agrega los filtros necesarios según los parámetros
+            if (ingredient) query += `&${ingredient}`;
+            if (alcoholRange.min && alcoholRange.max) query += `&abv_gt=${alcoholRange.min}&abv_lt=${alcoholRange.max}`;
+            if (bitternessRange.min && bitternessRange.max) query += `&ibu_gt=${bitternessRange.min}&ibu_lt=${bitternessRange.max}`;
+
+            const response = await axios.get(`https://api.punkapi.com/v2/beers?per_page=15${query}`);
+            
+            dispatch(myActions.getBeer(response.data)); 
+
+        } catch (error) {
+            throw new Error('Error al obtener productos filtrados');
+        }
+    }
+}
+

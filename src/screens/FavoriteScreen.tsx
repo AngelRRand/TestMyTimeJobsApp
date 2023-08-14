@@ -1,10 +1,15 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import Layoud from '../components/container/Layoud'
+import { ScrollView } from 'native-base'
 const FavoriteScreen = () => {
 	return (
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-		<Text>FavoriteScreen</Text>
-	  </View>
+		<Layoud >
+			<ScrollView>
+
+				<Text>FavoriteScreen</Text>
+			</ScrollView>
+		</Layoud>
 	)
 }
 

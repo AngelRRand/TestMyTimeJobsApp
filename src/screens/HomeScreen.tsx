@@ -59,7 +59,7 @@ const HomeScreen = () => {
 
 						<MyCarousel productsCarousel={{ listcarousel: productsCarousel }} />
 
-						<Heading p={4} size="md" color="#460626">Maris Otter Extra Pale (Malta)</Heading>
+						<Heading p={4} size="md" color="#460626">Maris (Malta)</Heading>
 
 						<CardList listCard={ProductsHomeMalta} />
 
