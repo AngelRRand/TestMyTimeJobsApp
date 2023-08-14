@@ -47,7 +47,10 @@ const mySlice = createSlice({
         },
         clearCart: (state) => {
             state.ProductsCart = [];
-        }
+        },
+        searchBeerResult: (state, action: PayloadAction<Beer>) => {
+            state.CurrentBeerDetails = action.payload;
+        },
     },
 });
 
@@ -157,3 +160,24 @@ export const fetchFilteredProducts = (
     }
 }
 
+export const searchBeerByName = (beerName: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const response = await axios.get(`https://api.punkapi.com/v2/beers?beer_name=${beerName.replace(/\s+/g, '_')}`);
+
+            const foundBeer = response.data[0];
+
+            const cost = parseFloat(calculateBeerCost(foundBeer).toFixed(2));
+
+            const transformedBeerDetails = {
+                ...foundBeer,
+                cost: cost
+            };
+
+            // Despachar los resultados a la tienda Redux
+            dispatch(myActions.searchBeerResult(transformedBeerDetails));
+        } catch (error) {
+            throw new Error('Error al buscar la cerveza por su nombre');
+        }
+    }
+}
