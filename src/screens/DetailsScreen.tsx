@@ -15,9 +15,9 @@ const DetailsScreen = () => {
 
 	const addCart = () => {
 
-		if(!CurrentBeerDetails) return; 
+		if (!CurrentBeerDetails) return;
 
-		let obj:BeerCart = {
+		let obj: BeerCart = {
 			image_url: CurrentBeerDetails?.image_url,
 			name: CurrentBeerDetails?.name,
 			id: CurrentBeerDetails?.id,
@@ -25,7 +25,7 @@ const DetailsScreen = () => {
 			cost: CurrentBeerDetails?.cost,
 			count: 1
 		}
-		
+
 		dispatch(myActions.addToCart(obj))
 	}
 	return (
@@ -65,6 +65,8 @@ const DetailsScreen = () => {
 									textAlign="center"
 									p={2}
 									bg="#800040"
+									borderWidth={1}
+
 									rounded={20}
 									style={{
 										position: "absolute",
@@ -73,13 +75,29 @@ const DetailsScreen = () => {
 										transform: [{ rotate: '45deg' }]
 									}}
 								>¡Ver ingredientes!</Heading>
+								<Heading
+									size="3xl"
+									color="#800040"
+									marginTop={3}
+									textAlign="center"
+									p={1}
+									bg="white"
+									borderWidth={2}
+									rounded={10}
+									style={{
+										position: "absolute",
+										left: -70,
+										bottom: 50,
+										transform: [{ rotate: '-35deg' }]
+									}}
+								>$ {CurrentBeerDetails?.cost}</Heading>
 							</Box>
 						</Pressable>
 
 						<Text color="black">Nivel de Alcohol: {CurrentBeerDetails?.abv}</Text>
 						<Text color="black">Amargura: {CurrentBeerDetails?.ibu}</Text>
 
-						<Pressable onPress={()=> addCart()}>
+						<Pressable onPress={() => addCart()}>
 
 							<Box bg="#800040" w="100%" h={50} mt={4} mb={4} p={1} rounded={10}>
 								<Text textAlign="center" fontSize={25} color="white">Añadir al carrito</Text>

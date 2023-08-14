@@ -37,7 +37,7 @@ const CardCart: React.FC<CardPropsCart> = ({ item }) => {
                     <VStack>
                         <Heading isTruncated size="lg" h={10}>{item.count} - {item.name}</Heading>
                         <Text w={"65%"}>{item.tagline}</Text>
-                        <Text fontSize={20} w={"65%"}>{item.cost}</Text>
+                        <Text fontSize={20} w={"65%"}>$ {item.cost}</Text>
 
                     </VStack>
                     <Pressable marginLeft="auto" onPress={() => deletItem()}>

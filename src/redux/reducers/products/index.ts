@@ -44,6 +44,9 @@ const mySlice = createSlice({
         },
         removeFromCart: (state, action: PayloadAction<number>) => {
             state.ProductsCart = state.ProductsCart.filter(beer => beer.id !== action.payload);
+        },
+        clearCart: (state) => {
+            state.ProductsCart = [];
         }
     },
 });
