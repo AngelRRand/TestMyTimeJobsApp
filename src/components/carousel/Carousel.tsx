@@ -6,6 +6,7 @@ import { CarouselBeers, CarouselBeer } from '../../types';
 import { fetchBeerDetails } from '../../redux/reducers/products';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from '../../redux';
+import { useNavigation } from '@react-navigation/native';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -13,7 +14,10 @@ const MyCarousel = ({ productsCarousel }: { productsCarousel: CarouselBeers }) =
 
 
     const dispatch: Dispatch = useDispatch();
+    const navigation: any = useNavigation();
+
     const handleCardPress = (id: number) => {
+        navigation.navigate('Detail');
         dispatch(fetchBeerDetails(id));
     }
 

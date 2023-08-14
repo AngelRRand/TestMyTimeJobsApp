@@ -4,13 +4,15 @@ import { CardHomeBeer } from '../../../types';
 import { useDispatch } from 'react-redux';
 import { fetchBeerDetails } from '../../../redux/reducers/products';
 import { Dispatch } from '../../../redux';
+import { useNavigation } from '@react-navigation/native';
 
 const Card: React.FC<CardHomeBeer> = ({ id, name, image_url, cost }) => {
-	const dispatch: Dispatch = useDispatch();
+  const dispatch: Dispatch = useDispatch();
+  const navigation: any = useNavigation();
 
   const handleCardPress = () => {
-    console.log(`Card with ID: ${id} was pressed!`);
     dispatch(fetchBeerDetails(id));
+    navigation.navigate('Detail');
   }
 
   return (

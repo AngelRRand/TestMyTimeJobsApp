@@ -57,7 +57,7 @@ const ModalFilter: React.FC<ModalFilterProps> = ({ isOpen, onClose }) => {
 			setErrorMessage2("El valor mínimo debe ser menor al máximo y el valor máximo mayor al mínimo.");
 		} else {
 			setBitternessRange(newValues);
-			if (errorMessage) setErrorMessage2(null); 
+			setErrorMessage2(null); 
 		}
 	};
 
