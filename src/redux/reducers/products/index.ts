@@ -70,7 +70,6 @@ export const fetchProductsMalt = () => {
     }
 }
 
-
 export const fetchProductsHops = () => {
     return async (dispatch: Dispatch) => {
         try {

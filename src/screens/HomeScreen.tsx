@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MyCarousel from '../components/carousel/Carousel';
 import { ScrollView } from 'react-native';
 import CardList from '../components/card/cardHome/ListCardHome';
-import { fetchAllMalts } from '../redux/reducers/filters';
 
 
 
@@ -21,14 +20,13 @@ const HomeScreen = () => {
 	const productsCarousel = useSelector((state: RootState) => state.products.ProductsCarousel);
 	const ProductsHomeMalta = useSelector((state: RootState) => state.products.ProductsHomeMalta);
 	const ProductsHomeHops = useSelector((state: RootState) => state.products.ProductsHomeHops);
+    const dispatch: Dispatch = useDispatch();
 
 
 	useEffect(() => {
 		dispatch(fetchProductsCarousel());
 		dispatch(fetchProductsMalt());
 		dispatch(fetchProductsHops());
-		dispatch(fetchAllMalts());
-
 	}, [dispatch]);
 
 

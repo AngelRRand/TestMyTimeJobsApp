@@ -1,8 +1,9 @@
 export interface FilterState {
-    Malts: Malt[];
+    Malts: Title[];
+    Hops: Title[];
 }
 
 
-export interface Malt {
+export interface Title {
     name: string;
 }
